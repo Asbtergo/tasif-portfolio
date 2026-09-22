@@ -1,3 +1,600 @@
-<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Tasif's Test Site</title><link rel="stylesheet" href="css/style.css"></head><body>
-<header><a class="logo" href="index.html">TASIF<span>.</span></a><button id="menu">☰</button><nav><a href="index.html">Home</a><a href="about.html">About</a><a href="gallery.html">Gallery</a><a href="blog.html">Blog</a><a href="projects.html">Projects</a><a href="contact.html">Contact</a></nav><button id="theme">☾</button></header>
-<main><section class="hero"><div><small>TEST WEBSITE · V1</small><h1>Welcome to<br><span>Tasif's Den.</span></h1><p>A playground for learning how a real website is built, published, updated and expanded.</p><a class="btn" href="about.html">Explore →</a></div><div class="feature"><b>LIVE TEST PROJECT</b><p>Next: Git → GitHub → Cloudflare Pages</p></div></section><section><small>WHAT WE'RE TESTING</small><h2>A website that can grow.</h2><div class="grid"><article><b>01</b><h3>Pages</h3><p>About, Gallery, Blog, Projects and Contact.</p></article><article><b>02</b><h3>Interaction</h3><p>Responsive navigation, dark mode and JavaScript.</p></article><article><b>03</b><h3>Future-ready</h3><p>Ready to evolve into a dynamic website later.</p></article></div></section></main><footer>© <span class="year"></span> Tasif</footer><script src="js/app.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tasif's Den | Tasif</title>
+  <meta name="description" content="Tasif's personal portfolio — medicine, photography, projects and exploration.">
+
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:Inter,Arial,Helvetica,sans-serif;
+      background:#070b10;
+      color:#f5f7fa;
+      line-height:1.6;
+    }
+    a{color:inherit;text-decoration:none}
+    img{display:block;width:100%;height:100%;object-fit:cover}
+    :root{
+      --blue:#45a9ff;
+      --blue-dark:#1785dc;
+      --muted:#a7b0ba;
+      --line:rgba(255,255,255,.11);
+      --glass:rgba(13,19,27,.76);
+    }
+
+    /* NAVBAR */
+    header{
+      position:absolute;
+      z-index:20;
+      top:0;left:0;right:0;
+      height:78px;
+      padding:0 5.3%;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      border-bottom:1px solid rgba(255,255,255,.08);
+      background:linear-gradient(to bottom,rgba(3,7,12,.75),transparent);
+    }
+    .logo{
+      font-size:1.05rem;
+      font-weight:900;
+      letter-spacing:.05em;
+    }
+    .logo span{color:var(--blue)}
+    nav{display:flex;gap:30px;margin-left:auto;margin-right:35px}
+    nav a{
+      color:#d8dee5;
+      font-size:.85rem;
+      position:relative;
+      transition:.2s;
+    }
+    nav a:hover,nav a.active{color:#fff}
+    nav a.active:after{
+      content:"";
+      position:absolute;
+      left:0;right:0;bottom:-12px;
+      height:2px;background:var(--blue);
+    }
+    .nav-actions{display:flex;align-items:center;gap:10px}
+    .theme{
+      width:40px;height:40px;border-radius:50%;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.06);
+      color:white;cursor:pointer;
+    }
+    .connect{
+      border:1px solid rgba(69,169,255,.7);
+      border-radius:999px;
+      padding:10px 17px;
+      color:#dff2ff;
+      font-size:.8rem;
+    }
+
+    /* HERO */
+    .hero{
+      min-height:720px;
+      position:relative;
+      overflow:hidden;
+      display:flex;
+      align-items:center;
+    }
+    .hero-photo{
+      position:absolute;inset:0;
+      background-image:url("https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=2200&q=85");
+      background-size:cover;
+      background-position:center;
+      transform:scale(1.02);
+    }
+    .hero-photo:after{
+      content:"";
+      position:absolute;inset:0;
+      background:
+        linear-gradient(90deg,rgba(4,8,13,.97) 0%,rgba(4,8,13,.88) 32%,rgba(4,8,13,.36) 70%,rgba(4,8,13,.62) 100%),
+        linear-gradient(0deg,#070b10 0%,transparent 30%);
+    }
+    .hero-content{
+      position:relative;
+      z-index:2;
+      width:min(1180px,89%);
+      margin:auto;
+      padding-top:80px;
+    }
+    .eyebrow{
+      color:#a9d9ff;
+      font-size:.67rem;
+      letter-spacing:.3em;
+      font-weight:700;
+    }
+    .hero h1{
+      font-size:clamp(3.8rem,7.5vw,6.8rem);
+      line-height:.91;
+      letter-spacing:-.065em;
+      margin:22px 0 24px;
+    }
+    .hero h1 span{color:var(--blue)}
+    .hero-description{
+      width:min(570px,100%);
+      color:#d0d7de;
+      font-size:1rem;
+    }
+    .hero-buttons{
+      display:flex;gap:12px;flex-wrap:wrap;
+      margin-top:28px;
+    }
+    .btn{
+      display:inline-flex;align-items:center;gap:10px;
+      padding:13px 21px;
+      border-radius:999px;
+      font-size:.82rem;
+      font-weight:700;
+      transition:.2s;
+    }
+    .btn:hover{transform:translateY(-2px)}
+    .btn-primary{
+      color:#06111b;
+      background:var(--blue);
+      box-shadow:0 10px 30px rgba(69,169,255,.22);
+    }
+    .btn-outline{
+      color:#fff;
+      border:1px solid rgba(255,255,255,.35);
+      background:rgba(0,0,0,.12);
+    }
+    .socials{
+      display:flex;gap:20px;margin-top:29px;
+      color:#e6ebef;font-size:.9rem;
+    }
+    .hero-handwriting{
+      position:absolute;
+      right:3%;
+      top:35%;
+      color:rgba(255,255,255,.56);
+      font-family:cursive;
+      font-size:1rem;
+      line-height:1.15;
+      transform:rotate(-9deg);
+    }
+    .hero-location{
+      position:absolute;
+      right:4%;
+      bottom:110px;
+      font-size:.73rem;
+      color:#dce3e8;
+    }
+
+    /* PILLARS */
+    .pillars{
+      position:relative;
+      z-index:5;
+      width:min(1180px,89%);
+      margin:-42px auto 0;
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      background:rgba(13,19,27,.88);
+      border:1px solid var(--line);
+      border-radius:17px;
+      overflow:hidden;
+      backdrop-filter:blur(18px);
+    }
+    .pillar{
+      min-height:88px;
+      padding:20px 23px;
+      display:flex;
+      align-items:center;
+      gap:15px;
+      border-right:1px solid var(--line);
+    }
+    .pillar:last-child{border-right:0}
+    .pillar-icon{
+      color:var(--blue);
+      font-size:1.65rem;
+      width:34px;
+      text-align:center;
+    }
+    .pillar b{display:block;font-size:.86rem}
+    .pillar small{display:block;color:var(--muted);font-size:.68rem}
+
+    /* GENERAL */
+    .container{width:min(1180px,89%);margin:auto}
+    .about{
+      padding:105px 0 95px;
+      display:grid;
+      grid-template-columns:.82fr 1.18fr;
+      gap:65px;
+      align-items:center;
+    }
+    .section-label{
+      color:#76c4ff;
+      letter-spacing:.27em;
+      font-size:.64rem;
+      font-weight:800;
+    }
+    .about h2,.featured h2{
+      font-size:clamp(2.2rem,4.3vw,3.5rem);
+      line-height:.98;
+      letter-spacing:-.055em;
+      margin:12px 0 22px;
+    }
+    .about h2 span{color:var(--blue)}
+    .about p{
+      color:var(--muted);
+      font-size:.9rem;
+      max-width:500px;
+      margin-bottom:15px;
+    }
+    .more{
+      display:inline-block;
+      margin-top:12px;
+      color:#8dceff;
+      font-size:.83rem;
+      font-weight:700;
+    }
+
+    /* IMAGE STACK */
+    .image-stack{
+      height:420px;
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:9px;
+    }
+    .image-card{
+      position:relative;
+      overflow:hidden;
+      border-radius:13px;
+      border:1px solid var(--line);
+    }
+    .image-card:nth-child(2){transform:translateY(-15px)}
+    .image-card:nth-child(3){transform:translateY(15px)}
+    .image-card:nth-child(4){transform:translateY(-5px)}
+    .image-card:after{
+      content:"";
+      position:absolute;inset:0;
+      background:linear-gradient(transparent 35%,rgba(0,0,0,.92));
+    }
+    .image-card .caption{
+      position:absolute;
+      z-index:2;
+      left:14px;right:10px;bottom:14px;
+    }
+    .caption small{
+      color:#a9d8f8;
+      font-size:.56rem;
+      letter-spacing:.18em;
+      display:block;
+      margin-bottom:5px;
+    }
+    .caption b{font-size:.7rem;line-height:1.3;display:block}
+
+    /* FEATURED */
+    .featured{padding-bottom:95px}
+    .heading{
+      display:flex;
+      justify-content:space-between;
+      align-items:end;
+      margin-bottom:27px;
+    }
+    .heading a{color:#82caff;font-size:.78rem;font-weight:700}
+    .feature-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:16px;
+    }
+    .feature{
+      position:relative;
+      min-height:310px;
+      overflow:hidden;
+      border-radius:16px;
+      border:1px solid var(--line);
+    }
+    .feature img{transition:.45s}
+    .feature:hover img{transform:scale(1.05)}
+    .feature:after{
+      content:"";
+      position:absolute;inset:0;
+      background:linear-gradient(transparent 28%,rgba(3,7,11,.95));
+    }
+    .feature-content{
+      position:absolute;
+      z-index:2;
+      left:20px;right:20px;bottom:20px;
+    }
+    .tag{
+      display:inline-block;
+      padding:4px 10px;
+      border-radius:999px;
+      background:rgba(255,255,255,.13);
+      border:1px solid rgba(255,255,255,.1);
+      font-size:.6rem;
+      margin-bottom:9px;
+    }
+    .feature h3{font-size:1.45rem;line-height:1.12;letter-spacing:-.025em}
+    .feature p{color:#b3bec8;font-size:.73rem}
+    .arrow{
+      position:absolute;
+      right:0;bottom:0;
+      width:35px;height:35px;
+      border-radius:50%;
+      background:rgba(255,255,255,.13);
+      display:grid;place-items:center;
+    }
+
+    /* QUOTE */
+    .quote{
+      width:min(1250px,94%);
+      min-height:245px;
+      margin:auto;
+      border:1px solid var(--line);
+      border-radius:22px;
+      overflow:hidden;
+      position:relative;
+      display:grid;
+      place-items:center;
+      text-align:center;
+    }
+    .quote img{
+      position:absolute;
+      inset:0;
+      opacity:.58;
+    }
+    .quote:after{
+      content:"";position:absolute;inset:0;
+      background:linear-gradient(90deg,rgba(5,9,14,.85),rgba(5,9,14,.48),rgba(5,9,14,.82));
+    }
+    .quote-content{position:relative;z-index:2;padding:30px}
+    blockquote{
+      font-family:Georgia,serif;
+      font-style:italic;
+      font-size:clamp(1.3rem,3vw,2rem);
+    }
+    .quote-content small{
+      display:block;
+      margin-top:7px;
+      color:#aeb9c4;
+      letter-spacing:.18em;
+    }
+
+    /* CTA */
+    .cta{text-align:center;padding:95px 0 80px}
+    .cta h2{font-size:clamp(2rem,4vw,3rem);letter-spacing:-.045em}
+    .cta p{color:var(--muted);margin:8px 0 22px;font-size:.88rem}
+
+    footer{
+      border-top:1px solid var(--line);
+      padding:27px 5%;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:20px;
+      color:#8c98a3;
+      font-size:.72rem;
+    }
+    footer strong{color:#fff;font-size:1rem}
+    .footer-left{display:flex;align-items:center;gap:20px}
+    .footer-links{display:flex;gap:20px}
+    footer a:hover{color:#fff}
+    footer em{font-family:cursive}
+
+    @media(max-width:900px){
+      nav{gap:17px;margin-right:15px}
+      .connect{display:none}
+      .pillars{grid-template-columns:repeat(2,1fr)}
+      .pillar:nth-child(2){border-right:0}
+      .pillar:nth-child(-n+2){border-bottom:1px solid var(--line)}
+      .about{grid-template-columns:1fr;gap:45px}
+      .feature-grid{grid-template-columns:1fr}
+      .feature{min-height:290px}
+    }
+    @media(max-width:700px){
+      header{height:68px}
+      nav{display:none}
+      .hero{min-height:680px}
+      .hero-content{padding-top:80px}
+      .hero h1{font-size:3.35rem}
+      .hero-handwriting{display:none}
+      .hero-location{right:5%;bottom:85px}
+      .pillars{grid-template-columns:1fr;margin-top:-35px}
+      .pillar{border-right:0!important;border-bottom:1px solid var(--line)}
+      .pillar:last-child{border-bottom:0}
+      .about{padding:75px 0}
+      .image-stack{height:360px;grid-template-columns:repeat(2,1fr)}
+      .image-card:nth-child(n){transform:none}
+      .heading{align-items:start;flex-direction:column;gap:10px}
+      footer{flex-direction:column;align-items:flex-start}
+      .footer-links{flex-wrap:wrap}
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <a class="logo" href="index.html">TASIF<span>.</span></a>
+
+  <nav>
+    <a class="active" href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="blog.html">Blog</a>
+    <a href="projects.html">Projects</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+
+  <div class="nav-actions">
+    <button class="theme" onclick="document.body.classList.toggle('light')" aria-label="Toggle theme">☾</button>
+    <a class="connect" href="contact.html">Let's Connect →</a>
+  </div>
+</header>
+
+<main>
+
+  <section class="hero">
+    <div class="hero-photo"></div>
+
+    <div class="hero-content">
+      <div class="eyebrow">MEDICAL STUDENT / PHOTOGRAPHER / EXPLORER</div>
+
+      <h1>Welcome to<br><span>Tasif's Den.</span></h1>
+
+      <p class="hero-description">
+        A space where medicine meets curiosity, photography captures moments,
+        and ideas turn into reality.
+      </p>
+
+      <div class="hero-buttons">
+        <a class="btn btn-primary" href="gallery.html">Explore My Work →</a>
+        <a class="btn btn-outline" href="about.html">About Me</a>
+      </div>
+
+      <div class="socials">
+        <a href="projects.html">◉</a>
+        <a href="gallery.html">◎</a>
+        <a href="blog.html">▶</a>
+        <a href="contact.html">✉</a>
+      </div>
+    </div>
+
+    <div class="hero-handwriting">Same<br>Curiosity.<br>Different<br>Perspectives.</div>
+    <div class="hero-location">⌖ Rajshahi, Bangladesh</div>
+  </section>
+
+  <section class="pillars">
+    <a class="pillar" href="about.html">
+      <div class="pillar-icon">♧</div>
+      <div><b>MBBS Student</b><small>Barind Medical College</small></div>
+    </a>
+    <a class="pillar" href="gallery.html">
+      <div class="pillar-icon">◎</div>
+      <div><b>Photography</b><small>Capturing stories</small></div>
+    </a>
+    <a class="pillar" href="projects.html">
+      <div class="pillar-icon">&lt;/&gt;</div>
+      <div><b>Projects</b><small>Ideas into reality</small></div>
+    </a>
+    <a class="pillar" href="blog.html">
+      <div class="pillar-icon">✈</div>
+      <div><b>Exploring</b><small>Places & perspectives</small></div>
+    </a>
+  </section>
+
+  <section class="about container">
+    <div>
+      <div class="section-label">WHO I AM —</div>
+      <h2>More Than<br><span>Just a Student.</span></h2>
+
+      <p>
+        I'm Tasif — an MBBS student, an aspiring doctor, a photography
+        enthusiast, a traveler, a gamer, and someone who's always curious
+        about the world.
+      </p>
+      <p>
+        This is my corner of the internet, where I document my journey,
+        share my work, and explore ideas beyond textbooks.
+      </p>
+
+      <a class="more" href="about.html">Know More About Me →</a>
+    </div>
+
+    <div class="image-stack">
+      <a class="image-card" href="about.html">
+        <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=700&q=85" alt="Medical study">
+        <div class="caption"><small>STUDY</small><b>Learning today<br>for a better tomorrow.</b></div>
+      </a>
+
+      <a class="image-card" href="gallery.html">
+        <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=700&q=85" alt="Camera">
+        <div class="caption"><small>PHOTOGRAPHY</small><b>Freezing moments<br>that speak.</b></div>
+      </a>
+
+      <a class="image-card" href="blog.html">
+        <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=700&q=85" alt="Mountain travel">
+        <div class="caption"><small>TRAVEL</small><b>New places,<br>new perspectives.</b></div>
+      </a>
+
+      <a class="image-card" href="projects.html">
+        <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=700&q=85" alt="Gaming">
+        <div class="caption"><small>HOBBIES</small><b>Gaming, music<br>and everything in between.</b></div>
+      </a>
+    </div>
+  </section>
+
+  <section class="featured container">
+    <div class="heading">
+      <div>
+        <div class="section-label">FEATURED —</div>
+        <h2>Latest from the Den</h2>
+      </div>
+      <a href="projects.html">View All Projects →</a>
+    </div>
+
+    <div class="feature-grid">
+      <a class="feature" href="gallery.html">
+        <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1100&q=85" alt="Photography landscape">
+        <div class="feature-content">
+          <span class="tag">Photography</span>
+          <h3>City Evenings</h3>
+          <p>A collection of moments and light.</p>
+          <span class="arrow">›</span>
+        </div>
+      </a>
+
+      <a class="feature" href="blog.html">
+        <img src="https://images.unsplash.com/photo-1559757175-0eb30cd8c063?auto=format&fit=crop&w=1100&q=85" alt="Medical study">
+        <div class="feature-content">
+          <span class="tag">MBBS Life</span>
+          <h3>Learning Beyond Textbooks</h3>
+          <p>Notes, experiences and random thoughts.</p>
+          <span class="arrow">›</span>
+        </div>
+      </a>
+
+      <a class="feature" href="projects.html">
+        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1100&q=85" alt="Coding project">
+        <div class="feature-content">
+          <span class="tag">Projects</span>
+          <h3>Portfolio Website</h3>
+          <p>Built with HTML, CSS and JavaScript.</p>
+          <span class="arrow">›</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <section class="quote">
+    <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1800&q=85" alt="">
+    <div class="quote-content">
+      <blockquote>“Build a mind that patients can trust blindly.”</blockquote>
+      <small>— TASIF</small>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="container">
+      <h2>Let's Build Something Meaningful</h2>
+      <p>Ideas, collaborations, or just a friendly hello — I'm always up for a conversation.</p>
+      <a class="btn btn-primary" href="contact.html">Get In Touch →</a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="footer-left">
+    <strong>TASIF.</strong>
+    <span>© 2026 Tasif. All rights reserved.</span>
+  </div>
+
+  <div class="footer-links">
+    <a href="about.html">Medicine</a>
+    <a href="gallery.html">Photography</a>
+    <a href="projects.html">Projects</a>
+    <a href="blog.html">Ideas</a>
+  </div>
+
+  <em>Stay Curious.</em>
+</footer>
+
+</body>
+</html>
