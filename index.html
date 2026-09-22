@@ -405,6 +405,57 @@
       footer{flex-direction:column;align-items:flex-start}
       .footer-links{flex-wrap:wrap}
     }
+
+    /* LIGHT THEME */
+    body.light{
+      background:#f3f6f9;
+      color:#17202a;
+    }
+    body.light header{
+      background:linear-gradient(to bottom,rgba(243,246,249,.92),rgba(243,246,249,0));
+      border-bottom-color:rgba(0,0,0,.08);
+    }
+    body.light nav a{color:#42505d}
+    body.light nav a:hover,
+    body.light nav a.active{color:#101820}
+    body.light .theme{
+      background:rgba(0,0,0,.05);
+      color:#17202a;
+      border-color:rgba(0,0,0,.12);
+    }
+    body.light .hero-photo:after{
+      background:
+        linear-gradient(90deg,rgba(243,246,249,.92) 0%,rgba(243,246,249,.76) 32%,rgba(243,246,249,.22) 70%,rgba(243,246,249,.48) 100%),
+        linear-gradient(0deg,#f3f6f9 0%,transparent 30%);
+    }
+    body.light .hero-description{color:#34414d}
+    body.light .socials{color:#17202a}
+    body.light .hero-location{color:#26323d}
+    body.light .pillars{
+      background:rgba(255,255,255,.88);
+      border-color:rgba(0,0,0,.10);
+    }
+    body.light .pillar{border-color:rgba(0,0,0,.09)}
+    body.light .pillar b{color:#17202a}
+    body.light .pillar small{color:#66737f}
+    body.light .about p{color:#596672}
+    body.light .more,
+    body.light .heading a{color:#087dcc}
+    body.light .image-card,
+    body.light .feature,
+    body.light .quote{border-color:rgba(0,0,0,.10)}
+    body.light .quote:after{
+      background:linear-gradient(90deg,rgba(243,246,249,.78),rgba(243,246,249,.42),rgba(243,246,249,.75));
+    }
+    body.light .quote-content small{color:#596672}
+    body.light .cta p{color:#596672}
+    body.light footer{
+      border-top-color:rgba(0,0,0,.10);
+      color:#66737f;
+    }
+    body.light footer strong{color:#17202a}
+    body.light footer a:hover{color:#17202a}
+
   </style>
 </head>
 
@@ -423,7 +474,7 @@
   </nav>
 
   <div class="nav-actions">
-    <button class="theme" onclick="document.body.classList.toggle('light')" aria-label="Toggle theme">☾</button>
+    <button class="theme" id="themeToggle" aria-label="Toggle light and dark theme">☾</button>
     <a class="connect" href="contact.html">Let's Connect →</a>
   </div>
 </header>
@@ -595,6 +646,23 @@
 
   <em>Stay Curious.</em>
 </footer>
+
+
+<script>
+  const themeToggle = document.getElementById("themeToggle");
+
+  // Restore the user's previous choice.
+  if (localStorage.getItem("tasif-theme") === "light") {
+    document.body.classList.add("light");
+    themeToggle.textContent = "☀";
+  }
+
+  themeToggle.addEventListener("click", () => {
+    const isLight = document.body.classList.toggle("light");
+    localStorage.setItem("tasif-theme", isLight ? "light" : "dark");
+    themeToggle.textContent = isLight ? "☀" : "☾";
+  });
+</script>
 
 </body>
 </html>
