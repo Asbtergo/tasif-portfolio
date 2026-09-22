@@ -456,10 +456,47 @@
     body.light footer strong{color:#17202a}
     body.light footer a:hover{color:#17202a}
 
-  </style>
+  
+/* ================= IMMERSIVE V2 ================= */
+html{scroll-behavior:smooth}
+body{overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:9998;opacity:.035;background-image:radial-gradient(rgba(255,255,255,.7) .7px,transparent .7px);background-size:5px 5px}
+.scroll-progress{position:fixed;top:0;left:0;width:0;height:2px;background:var(--blue);z-index:10000;box-shadow:0 0 14px rgba(69,169,255,.55);transition:width .08s linear}
+.reveal{opacity:0;transform:translateY(34px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+.reveal.is-visible{opacity:1;transform:none}
+.reveal-delay-1{transition-delay:.08s}.reveal-delay-2{transition-delay:.16s}.reveal-delay-3{transition-delay:.24s}.reveal-delay-4{transition-delay:.32s}
+.hero-content>*{opacity:0;transform:translateY(24px);animation:heroIn .9s cubic-bezier(.2,.7,.2,1) forwards}
+.hero-content .eyebrow{animation-delay:.15s}.hero-content h1{animation-delay:.28s}.hero-content .hero-description{animation-delay:.4s}.hero-content .hero-buttons{animation-delay:.52s}.hero-content .socials{animation-delay:.64s}
+@keyframes heroIn{to{opacity:1;transform:none}}
+.hero-photo{transition:transform .15s ease-out;will-change:transform}
+.hero::after{content:"";position:absolute;inset:auto 0 0;height:180px;background:linear-gradient(transparent,var(--bg));z-index:1;pointer-events:none}
+.btn,.connect,.feature,.image-card,.pillar,.more{will-change:transform}
+.btn{transition:transform .25s cubic-bezier(.2,.8,.2,1),box-shadow .25s,background .25s}
+.btn:hover{transform:translateY(-4px);box-shadow:0 12px 28px rgba(0,0,0,.2)}
+.feature,.image-card{transition:transform .45s cubic-bezier(.2,.8,.2,1),border-color .3s,box-shadow .45s}
+.feature:hover,.image-card:hover{box-shadow:0 22px 55px rgba(0,0,0,.28);border-color:rgba(69,169,255,.5)}
+.feature img,.image-card img{transition:transform .7s cubic-bezier(.2,.7,.2,1),filter .5s}
+.feature:hover img,.image-card:hover img{transform:scale(1.06);filter:saturate(1.08)}
+.pillar{transition:background .3s,transform .3s,border-color .3s}
+.pillar:hover{background:rgba(255,255,255,.035);transform:translateY(-4px)}
+body.light .pillar:hover{background:rgba(0,0,0,.025)}
+.cursor-dot,.cursor-ring{position:fixed;left:0;top:0;pointer-events:none;z-index:10001;border-radius:50%;transform:translate(-50%,-50%);opacity:0}
+.cursor-dot{width:6px;height:6px;background:#fff;mix-blend-mode:difference;transition:opacity .2s,transform .15s}
+.cursor-ring{width:34px;height:34px;border:1px solid rgba(255,255,255,.75);mix-blend-mode:difference;transition:width .25s,height .25s,opacity .2s,background .25s,border-color .25s}
+.cursor-ring.active{width:58px;height:58px;background:rgba(255,255,255,.08);border-color:transparent}
+.cursor-ring.view{width:76px;height:76px;background:rgba(255,255,255,.94);border-color:transparent}
+.cursor-ring.view::after{content:"VIEW";color:#080b10;font-size:9px;font-weight:800;letter-spacing:.15em;position:absolute;inset:0;display:grid;place-items:center}
+body.light .cursor-dot{background:#111}
+body.light .cursor-ring{border-color:rgba(0,0,0,.65)}
+@media(hover:none),(pointer:coarse){.cursor-dot,.cursor-ring{display:none}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal,.hero-content>*{opacity:1;transform:none;animation:none}.hero-photo{transform:none!important}.feature,.image-card,.btn,.pillar{transition:none}.cursor-dot,.cursor-ring{display:none}}
+
+</style>
 </head>
 
 <body>
+<div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+<div class="cursor-dot" id="cursorDot" aria-hidden="true"></div><div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
 
 <header>
   <a class="logo" href="index.html">TASIF<span>.</span></a>
@@ -662,6 +699,81 @@
     localStorage.setItem("tasif-theme", isLight ? "light" : "dark");
     themeToggle.textContent = isLight ? "☀" : "☾";
   });
+</script>
+
+
+<script>
+(function(){
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const progress = document.getElementById('scrollProgress');
+  const heroPhoto = document.querySelector('.hero-photo');
+  const revealItems = document.querySelectorAll('.container, .pillars, .pillar, .image-card, .feature, .quote, .cta');
+
+  revealItems.forEach((el,i)=>{
+    if (!el.classList.contains('hero')) {
+      el.classList.add('reveal');
+      if (i % 4) el.classList.add('reveal-delay-' + (i % 4));
+    }
+  });
+
+  if (!reduceMotion && 'IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){ entry.target.classList.add('is-visible'); observer.unobserve(entry.target); }
+      });
+    },{threshold:.12,rootMargin:'0px 0px -45px 0px'});
+    document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+  } else document.querySelectorAll('.reveal').forEach(el=>el.classList.add('is-visible'));
+
+  function updateProgress(){
+    const max=document.documentElement.scrollHeight-window.innerHeight;
+    const value=max>0?(window.scrollY/max)*100:0;
+    if(progress) progress.style.width=Math.min(100,Math.max(0,value))+'%';
+    if(heroPhoto && !reduceMotion){
+      const y=Math.min(window.scrollY*.12,70);
+      heroPhoto.style.transform='scale(1.04) translate3d(0,'+y+'px,0)';
+    }
+  }
+  updateProgress(); window.addEventListener('scroll',updateProgress,{passive:true});
+
+  if(!reduceMotion && window.matchMedia('(hover:hover) and (pointer:fine)').matches){
+    const dot=document.getElementById('cursorDot'), ring=document.getElementById('cursorRing');
+    let mx=innerWidth/2,my=innerHeight/2,rx=mx,ry=my;
+    let active=false;
+    window.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.opacity='1';ring.style.opacity='1';},{passive:true});
+    function cursorLoop(){
+      rx+=(mx-rx)*.16; ry+=(my-ry)*.16;
+      dot.style.transform='translate3d('+mx+'px,'+my+'px,0) translate(-50%,-50%)';
+      ring.style.transform='translate3d('+rx+'px,'+ry+'px,0) translate(-50%,-50%)';
+      requestAnimationFrame(cursorLoop);
+    }
+    cursorLoop();
+    document.querySelectorAll('a,button,.theme').forEach(el=>{
+      el.addEventListener('mouseenter',()=>{active=true;ring.classList.add('active')});
+      el.addEventListener('mouseleave',()=>{active=false;ring.classList.remove('active');ring.classList.remove('view')});
+    });
+    document.querySelectorAll('.image-card,.feature').forEach(el=>{
+      el.addEventListener('mouseenter',()=>ring.classList.add('view'));
+      el.addEventListener('mouseleave',()=>ring.classList.remove('view'));
+    });
+    document.addEventListener('mouseleave',()=>{dot.style.opacity='0';ring.style.opacity='0'});
+  }
+
+  if(!reduceMotion && window.matchMedia('(hover:hover) and (pointer:fine)').matches){
+    document.querySelectorAll('.image-card,.feature').forEach(card=>{
+      card.addEventListener('mousemove',e=>{
+        const r=card.getBoundingClientRect();
+        const x=(e.clientX-r.left)/r.width-.5, y=(e.clientY-r.top)/r.height-.5;
+        card.style.transform='perspective(900px) rotateX('+(-y*4)+'deg) rotateY('+(x*5)+'deg) translateY(-3px)';
+      });
+      card.addEventListener('mouseleave',()=>card.style.transform='');
+    });
+  }
+
+  document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{
+    const target=document.querySelector(a.getAttribute('href')); if(target){e.preventDefault();target.scrollIntoView({behavior:reduceMotion?'auto':'smooth'});}
+  }));
+})();
 </script>
 
 </body>
