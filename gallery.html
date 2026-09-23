@@ -1,1 +1,233 @@
-<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Gallery — Tasif</title><link rel="stylesheet" href="css/style.css"></head><body><header><a class="logo" href="index.html">TASIF<span>.</span></a><button id="menu">☰</button><nav><a href="index.html">Home</a><a href="about.html">About</a><a class="active" href="gallery.html">Gallery</a><a href="blog.html">Blog</a><a href="projects.html">Projects</a><a href="contact.html">Contact</a></nav><button id="theme">☾</button></header><main class="page"><small>GALLERY</small><h1>Image playground.</h1><p>Placeholders for future photography.</p><div class="photos"><div>PHOTO 01</div><div>PHOTO 02</div><div>PHOTO 03</div><div>PHOTO 04</div></div></main><footer>© <span class="year"></span> Tasif</footer><script src="js/app.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Tasif's photography gallery — nature, skies, landscapes and moments.">
+  <title>Photography — Tasif's Den</title>
+  <style>
+    :root{
+      --bg:#070b10;--text:#f3f7fb;--muted:#9aa7b3;--line:rgba(255,255,255,.11);
+      --blue:#45a9ff;--panel:#0c1219;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif}
+    a{color:inherit;text-decoration:none}
+    header{position:fixed;z-index:20;top:0;left:0;right:0;height:72px;display:flex;align-items:center;padding:0 5%;
+      background:linear-gradient(to bottom,rgba(7,11,16,.94),rgba(7,11,16,0));backdrop-filter:blur(8px)}
+    .logo{font-weight:900;letter-spacing:.08em;font-size:1.05rem}
+    .logo span{color:var(--blue)}
+    nav{display:flex;gap:28px;margin-left:auto;margin-right:28px}
+    nav a{font-size:.82rem;color:#cbd4dc;position:relative}
+    nav a:hover,nav a.active{color:#fff}
+    nav a.active:after{content:"";position:absolute;left:0;right:0;bottom:-11px;height:2px;background:var(--blue)}
+    #theme{width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:rgba(255,255,255,.06);color:#fff;cursor:pointer}
+    main{width:min(1220px,90%);margin:auto;padding:140px 0 90px}
+    .eyebrow{font-size:.68rem;letter-spacing:.28em;color:#a9d9ff;font-weight:700}
+    h1{font-size:clamp(3rem,8vw,6.3rem);line-height:.9;letter-spacing:-.065em;margin:18px 0 20px}
+    h1 span{color:var(--blue)}
+    .intro{max-width:620px;color:#aeb9c4;line-height:1.7}
+    .tabs{display:flex;gap:10px;flex-wrap:wrap;margin:42px 0 28px}
+    .tab{border:1px solid var(--line);background:transparent;color:#aeb9c4;border-radius:999px;padding:10px 17px;cursor:pointer;font:inherit;font-size:.78rem}
+    .tab.active,.tab:hover{background:var(--blue);border-color:var(--blue);color:#06111b}
+    .gallery{columns:3 280px;column-gap:18px}
+    .photo{position:relative;display:block;break-inside:avoid;margin:0 0 18px;border-radius:18px;overflow:hidden;background:var(--panel);border:1px solid var(--line);cursor:zoom-in}
+    .photo img{display:block;width:100%;height:auto;transition:transform .7s cubic-bezier(.2,.7,.2,1),filter .5s}
+    .photo:hover img{transform:scale(1.045);filter:saturate(1.08)}
+    .caption{position:absolute;left:0;right:0;bottom:0;padding:42px 18px 17px;background:linear-gradient(transparent,rgba(0,0,0,.78));opacity:0;transform:translateY(8px);transition:.35s}
+    .photo:hover .caption{opacity:1;transform:none}
+    .caption small{display:block;letter-spacing:.16em;color:#bfe5ff;font-size:.62rem;margin-bottom:5px}
+    .caption b{font-size:.95rem}
+    .empty{display:none;padding:50px 20px;border:1px dashed var(--line);border-radius:18px;text-align:center;color:var(--muted)}
+    .lightbox{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.93);display:none;align-items:center;justify-content:center;padding:30px}
+    .lightbox.open{display:flex}
+    .lightbox img{max-width:94vw;max-height:88vh;width:auto;height:auto;object-fit:contain;border-radius:8px}
+    .close,.prev,.next{position:absolute;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.08);color:#fff;border-radius:50%;cursor:pointer}
+    .close{right:25px;top:22px;width:44px;height:44px;font-size:22px}
+    .prev,.next{top:50%;transform:translateY(-50%);width:48px;height:48px;font-size:25px}
+    .prev{left:20px}.next{right:20px}
+    .counter{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);font-size:.75rem;color:#b7c1ca;letter-spacing:.12em}
+    footer{border-top:1px solid var(--line);padding:28px 5%;color:#82909d;font-size:.72rem;display:flex;justify-content:space-between}
+    body.light{--bg:#f3f6f9;--text:#17202a;--muted:#596672;--line:rgba(0,0,0,.12);--panel:#fff}
+    body.light header{background:linear-gradient(to bottom,rgba(243,246,249,.95),rgba(243,246,249,0))}
+    body.light nav a{color:#42505d} body.light nav a:hover,body.light nav a.active{color:#101820}
+    body.light #theme{color:#17202a;background:rgba(0,0,0,.05)}
+    body.light .tab{color:#53616d} body.light footer{color:#66737f}
+    @media(max-width:700px){
+      nav{display:none} header{height:64px}
+      main{padding-top:110px}
+      .gallery{columns:2 150px;column-gap:10px}
+      .photo{margin-bottom:10px;border-radius:12px}
+      .caption{opacity:1;transform:none;padding:28px 11px 10px}
+      .caption b{font-size:.78rem}.prev{left:9px}.next{right:9px}
+      footer{flex-direction:column;gap:8px}
+    }
+    @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+  </style>
+</head>
+<body>
+<header>
+  <a class="logo" href="index.html">TASIF<span>.</span></a>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a class="active" href="gallery.html">Gallery</a>
+    <a href="blog.html">Blog</a>
+    <a href="projects.html">Projects</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+  <button id="theme" aria-label="Toggle theme">☾</button>
+</header>
+
+<main>
+  <div class="eyebrow">PHOTOGRAPHY</div>
+  <h1>Moments,<br><span>framed.</span></h1>
+  <p class="intro">A growing collection of things I notice — skies, plants, landscapes, cities and quiet moments.</p>
+
+  <div class="tabs" role="tablist" aria-label="Photography categories">
+    <button class="tab active" data-filter="nature" role="tab" aria-selected="true">Nature</button>
+    <button class="tab" data-filter="all" role="tab" aria-selected="false">All</button>
+    <button class="tab" data-filter="street" role="tab" aria-selected="false">Street</button>
+    <button class="tab" data-filter="travel" role="tab" aria-selected="false">Travel</button>
+    <button class="tab" data-filter="portraits" role="tab" aria-selected="false">Portraits</button>
+  </div>
+
+  <div class="gallery" id="gallery">
+    <a class="photo" data-category="nature" href="images/nature/nature-01.jpg" data-title="Cloud Study">
+      <img src="images/nature/nature-01.jpg" alt="White clouds against a deep blue sky" loading="lazy">
+      <div class="caption"><small>NATURE · 01</small><b>Cloud Study</b></div>
+    </a>
+    <a class="photo" data-category="nature" href="images/nature/nature-02.jpg" data-title="Cloudscape">
+      <img src="images/nature/nature-02.jpg" alt="Layered clouds across a blue sky" loading="lazy">
+      <div class="caption"><small>NATURE · 02</small><b>Cloudscape</b></div>
+    </a>
+    <a class="photo" data-category="nature" href="images/nature/nature-03.jpg" data-title="Garden Bloom">
+      <img src="images/nature/nature-03.jpg" alt="Yellow tomato flowers and green leaves" loading="lazy">
+      <div class="caption"><small>NATURE · 03</small><b>Garden Bloom</b></div>
+    </a>
+    <a class="photo" data-category="nature" href="images/nature/nature-04.jpg" data-title="After the Rain">
+      <img src="images/nature/nature-04.jpg" alt="Soft evening sky over a distant city" loading="lazy">
+      <div class="caption"><small>NATURE · 04</small><b>After the Rain</b></div>
+    </a>
+    <a class="photo" data-category="nature" href="images/nature/nature-05.jpg" data-title="Misty Evening">
+      <img src="images/nature/nature-05.jpg" alt="Pink and violet evening sky over a landscape" loading="lazy">
+      <div class="caption"><small>NATURE · 05</small><b>Misty Evening</b></div>
+    </a>
+    <a class="photo" data-category="nature" href="images/nature/nature-06.jpg" data-title="Blue Hills">
+      <img src="images/nature/nature-06.jpg" alt="Blue-green hills fading into the distance" loading="lazy">
+      <div class="caption"><small>NATURE · 06</small><b>Blue Hills</b></div>
+    </a>
+    <a class="photo" data-category="nature" href="images/nature/nature-07.jpg" data-title="Golden Horizon">
+      <img src="images/nature/nature-07.jpg" alt="Golden sunset over a city and fields" loading="lazy">
+      <div class="caption"><small>NATURE · 07</small><b>Golden Horizon</b></div>
+    </a>
+    <a class="photo" data-category="nature" href="images/nature/nature-08.jpg" data-title="Open Skies">
+      <img src="images/nature/nature-08.jpg" alt="Wide blue sky above a building and trees" loading="lazy">
+      <div class="caption"><small>NATURE · 08</small><b>Open Skies</b></div>
+    </a>
+    <a class="photo" data-category="nature" href="images/nature/nature-09.jpg" data-title="Crimson Canopy">
+      <img src="images/nature/nature-09.jpg" alt="Red blossoms spreading across tree branches" loading="lazy">
+      <div class="caption"><small>NATURE · 09</small><b>Crimson Canopy</b></div>
+    </a>
+    <a class="photo" data-category="nature" href="images/nature/nature-10.jpg" data-title="Night Light">
+      <img src="images/nature/nature-10.jpg" alt="Street light glowing through mist and trees at night" loading="lazy">
+      <div class="caption"><small>NATURE · 10</small><b>Night Light</b></div>
+    </a>
+  </div>
+  <div class="empty" id="empty">This collection is coming soon.</div>
+</main>
+
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <button class="close" id="close" aria-label="Close">×</button>
+  <button class="prev" id="prev" aria-label="Previous photo">‹</button>
+  <img id="lightboxImg" alt="">
+  <button class="next" id="next" aria-label="Next photo">›</button>
+  <div class="counter" id="counter"></div>
+</div>
+
+<footer>
+  <span>© 2026 Tasif. All rights reserved.</span>
+  <span>Photography · Nature</span>
+</footer>
+
+<script>
+  const theme = document.getElementById("theme");
+  if (localStorage.getItem("tasif-theme") === "light") {
+    document.body.classList.add("light");
+    theme.textContent = "☀";
+  }
+  theme.addEventListener("click", () => {
+    const light = document.body.classList.toggle("light");
+    localStorage.setItem("tasif-theme", light ? "light" : "dark");
+    theme.textContent = light ? "☀" : "☾";
+  });
+
+  const tabs = [...document.querySelectorAll(".tab")];
+  const photos = [...document.querySelectorAll(".photo")];
+  const empty = document.getElementById("empty");
+
+  function filterGallery(filter){
+    let visible = 0;
+    photos.forEach(photo => {
+      const show = filter === "all" || photo.dataset.category === filter;
+      photo.style.display = show ? "block" : "none";
+      if(show) visible++;
+    });
+    empty.style.display = visible ? "none" : "block";
+  }
+
+  tabs.forEach(tab => tab.addEventListener("click", () => {
+    tabs.forEach(t => {
+      t.classList.remove("active");
+      t.setAttribute("aria-selected","false");
+    });
+    tab.classList.add("active");
+    tab.setAttribute("aria-selected","true");
+    filterGallery(tab.dataset.filter);
+  }));
+
+  const lightbox = document.getElementById("lightbox");
+  const lightboxImg = document.getElementById("lightboxImg");
+  const counter = document.getElementById("counter");
+  let current = 0;
+
+  function visiblePhotos(){ return photos.filter(p => p.style.display !== "none"); }
+
+  function openPhoto(index){
+    const list = visiblePhotos();
+    current = (index + list.length) % list.length;
+    const img = list[current].querySelector("img");
+    lightboxImg.src = img.src;
+    lightboxImg.alt = img.alt;
+    counter.textContent = `${current + 1} / ${list.length}`;
+    lightbox.classList.add("open");
+    lightbox.setAttribute("aria-hidden","false");
+    document.body.style.overflow = "hidden";
+  }
+
+  photos.forEach(photo => photo.addEventListener("click", e => {
+    e.preventDefault();
+    openPhoto(visiblePhotos().indexOf(photo));
+  }));
+
+  function move(delta){ openPhoto(current + delta); }
+  document.getElementById("prev").addEventListener("click", () => move(-1));
+  document.getElementById("next").addEventListener("click", () => move(1));
+
+  function closeBox(){
+    lightbox.classList.remove("open");
+    lightbox.setAttribute("aria-hidden","true");
+    document.body.style.overflow = "";
+  }
+  document.getElementById("close").addEventListener("click", closeBox);
+  lightbox.addEventListener("click", e => { if(e.target === lightbox) closeBox(); });
+  document.addEventListener("keydown", e => {
+    if(!lightbox.classList.contains("open")) return;
+    if(e.key === "Escape") closeBox();
+    if(e.key === "ArrowLeft") move(-1);
+    if(e.key === "ArrowRight") move(1);
+  });
+</script>
+</body>
+</html>
