@@ -1,42 +1,124 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>About — Tasif</title>
-  <link rel="stylesheet" href="css/style.css">
-  <style>
-    .why-story{max-width:900px;margin-top:35px}
-    .why-profile{
-      display:flex;
-      justify-content:center;
-      margin:8px 0 30px;
-    }
-    .why-profile img{
-      width:145px;
-      height:145px;
-      object-fit:cover;
-      object-position:center 30%;
-      border-radius:50%;
-      display:block;
-      border:3px solid rgba(69,169,255,.9);
-      box-shadow:0 12px 35px rgba(0,0,0,.28);
-    }
-    .why-story p{line-height:1.85;color:var(--muted,#aeb9c4);margin:0 0 18px}
-    .why-story .lead{font-size:1.08rem;color:inherit}
-    .why-story blockquote{
-      margin:32px 0 8px;padding:24px 0 24px 24px;
-      border-left:3px solid #45a9ff;
-      font-size:clamp(1.35rem,3vw,2rem);
-      line-height:1.35;font-style:italic;color:inherit;
-    }
-    .why-story cite{display:block;margin-left:24px;color:#45a9ff;letter-spacing:.15em;font-size:.72rem;font-style:normal;font-weight:700}
-    @media (max-width:600px){
-      .why-profile img{width:120px;height:120px}
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>About — Tasif's Den</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+:root{
+  --about-bg:#061019;
+  --about-card:rgba(10,24,35,.82);
+  --about-line:rgba(126,190,235,.18);
+  --about-blue:#55b8ff;
+  --about-blue2:#8bd1ff;
+  --about-text:#edf4f8;
+  --about-muted:#a9b9c5;
+}
+body.about-page{
+  background:
+    radial-gradient(circle at 78% 8%,rgba(53,139,196,.12),transparent 28%),
+    radial-gradient(circle at 15% 55%,rgba(38,103,150,.08),transparent 30%),
+    var(--about-bg);
+  color:var(--about-text);
+}
+.about-wrap{max-width:1180px;margin:0 auto;padding:0 28px 70px}
+.about-hero{
+  min-height:380px;
+  display:flex;align-items:center;
+  position:relative;overflow:hidden;
+  border-bottom:1px solid var(--about-line);
+}
+.about-hero:after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(90deg,var(--about-bg) 0%,rgba(6,16,25,.88) 34%,rgba(6,16,25,.18) 75%,var(--about-bg) 100%);
+}
+.about-hero-art{
+  position:absolute;right:0;top:0;width:62%;height:100%;
+  background:
+    linear-gradient(90deg,var(--about-bg),transparent 42%),
+    url("images/about/tasif-profile.jpg") center 30%/cover no-repeat;
+  filter:saturate(.72) brightness(.72);
+  opacity:.42;
+}
+.about-hero-content{position:relative;z-index:2;max-width:610px;padding:65px 0}
+.about-kicker,.section-kicker{
+  font-size:.72rem;letter-spacing:.34em;text-transform:uppercase;
+  color:var(--about-blue2);font-weight:700;
+}
+.about-hero h1{
+  margin:15px 0 18px;font-family:Georgia,serif;
+  font-size:clamp(3rem,7vw,5.8rem);line-height:.98;letter-spacing:-.045em;
+}
+.about-hero h1 span{color:var(--about-blue)}
+.about-hero p{max-width:530px;color:#c5d2da;font-size:1.1rem;line-height:1.7}
+.story-card{
+  margin-top:-35px;position:relative;z-index:4;
+  display:grid;grid-template-columns:310px 1fr;
+  gap:50px;padding:44px;
+  background:linear-gradient(145deg,rgba(12,30,43,.95),rgba(7,18,27,.94));
+  border:1px solid var(--about-line);border-radius:25px;
+  box-shadow:0 30px 80px rgba(0,0,0,.28);
+}
+.profile-side{text-align:center;border-right:1px solid var(--about-line);padding-right:42px}
+.profile-photo{
+  width:210px;height:210px;border-radius:50%;object-fit:cover;
+  object-position:center 30%;display:block;margin:0 auto 25px;
+  border:3px solid var(--about-blue);
+  box-shadow:0 0 0 9px rgba(85,184,255,.07),0 20px 50px rgba(0,0,0,.35);
+}
+.signature{font-family:cursive;font-size:2.35rem;font-style:italic;margin:4px 0 10px}
+.profile-meta{font-size:.7rem;letter-spacing:.28em;color:var(--about-blue2);line-height:1.9}
+.quote{
+  margin:34px auto 0;padding:23px 10px;
+  border-top:1px solid var(--about-line);border-bottom:1px solid var(--about-line);
+  font-family:Georgia,serif;font-size:1.15rem;line-height:1.55;
+}
+.quote small{display:block;margin-top:12px;color:var(--about-blue);letter-spacing:.3em;font-size:.65rem;font-family:inherit}
+.story h2{font-family:Georgia,serif;font-size:clamp(2rem,4vw,3.2rem);margin:0 0 25px}
+.story h2:after{content:"";display:block;width:55px;height:2px;background:var(--about-blue);margin-top:17px}
+.story p{color:#c0ccd4;line-height:1.85;margin:0 0 18px;font-size:1rem}
+.story strong{color:#eef6fb}
+.story .accent{color:var(--about-blue)}
+.interests{
+  display:grid;grid-template-columns:repeat(6,1fr);
+  margin:38px 0 0;border-top:1px solid var(--about-line);
+  border-bottom:1px solid var(--about-line);
+}
+.interest{
+  padding:28px 14px;text-align:center;border-right:1px solid var(--about-line);
+}
+.interest:last-child{border-right:0}
+.interest-icon{font-size:1.75rem;margin-bottom:10px}
+.interest h3{font-size:.92rem;margin:0 0 7px}
+.interest p{margin:0;color:#8fa1ad;font-size:.72rem;line-height:1.45}
+.about-footer{text-align:center;padding:70px 0 10px}
+.about-footer .big-line{font-family:cursive;font-size:2.5rem;font-style:italic;color:#d9e7ef}
+.about-footer .tiny{margin-top:18px;color:#6f8998;font-size:.65rem;letter-spacing:.34em}
+@media(max-width:900px){
+  .story-card{grid-template-columns:1fr;gap:35px}
+  .profile-side{border-right:0;border-bottom:1px solid var(--about-line);padding:0 0 35px}
+  .interests{grid-template-columns:repeat(3,1fr)}
+  .interest:nth-child(3){border-right:0}
+  .interest:nth-child(-n+3){border-bottom:1px solid var(--about-line)}
+}
+@media(max-width:600px){
+  .about-wrap{padding:0 17px 45px}
+  .about-hero{min-height:470px}
+  .about-hero-art{width:100%;opacity:.24}
+  .about-hero-content{padding:60px 5px}
+  .about-hero h1{font-size:3.25rem}
+  .story-card{padding:28px 20px;border-radius:19px}
+  .profile-photo{width:165px;height:165px}
+  .interests{grid-template-columns:repeat(2,1fr)}
+  .interest:nth-child(2n){border-right:0}
+  .interest:nth-child(3){border-right:1px solid var(--about-line)}
+  .interest:nth-child(-n+4){border-bottom:1px solid var(--about-line)}
+}
+</style>
 </head>
-<body>
+
+<body class="about-page">
 <header>
   <a class="logo" href="index.html">TASIF<span>.</span></a>
   <button id="menu">☰</button>
@@ -51,47 +133,52 @@
   <button id="theme">☾</button>
 </header>
 
-<main class="page">
-  <small>ABOUT</small>
-  <h1>A test page today.<br><span>A real website tomorrow.</span></h1>
-  <p>This is my corner of the internet — a place for medicine, photography, curiosity, projects and the journey in between.</p>
+<main>
+  <section class="about-hero">
+    <div class="about-hero-art"></div>
+    <div class="about-wrap">
+      <div class="about-hero-content">
+        <div class="about-kicker">About Me</div>
+        <h1>More Than<br><span>Just a Student.</span></h1>
+        <p>A curious mind, a camera, a stethoscope, and a thousand stories to tell.</p>
+      </div>
+    </div>
+  </section>
 
-  <div class="grid">
-    <article>
-      <h3>Why?</h3>
+  <div class="about-wrap">
+    <section class="story-card">
+      <aside class="profile-side">
+        <img class="profile-photo" src="images/about/tasif-profile.jpg" alt="Tasif">
+        <div class="signature">Tasif Riad</div>
+        <div class="profile-meta">MBBS STUDENT<br>RAJSHAHI, BANGLADESH</div>
 
-      <div class="why-story">
-        <div class="why-profile">
-          <img src="images/about/tasif-profile.jpg" alt="Tasif">
+        <div class="quote">
+          “Build a mind that patients<br>can trust blindly.”
+          <small>— TASIF</small>
         </div>
+      </aside>
 
-        <p class="lead">There was a time when I thought a website had to be something complicated.</p>
+      <article class="story">
+        <div class="section-kicker">My Story</div>
+        <h2>A little about the person behind the Den.</h2>
 
-        <p>Something built by someone who knew how to code, hosted somewhere mysterious, and probably required a lot more technical knowledge than I had.</p>
+        <p>There was a time when I thought a website had to be something complicated. Something built by someone who knew how to code, hosted somewhere mysterious, and probably required a lot more technical knowledge than I had. Then I decided to build one anyway.</p>
 
-        <p>Then I decided to build one anyway.</p>
+        <p>Welcome to <strong class="accent">Tasif's Den.</strong></p>
 
-        <p>Welcome to <strong>Tasif's Den.</strong></p>
-
-        <p>This isn't meant to be a perfect portfolio or a polished version of my entire life. It's simply a place where I can collect the things that make me <em>me</em>.</p>
+        <p>This isn't meant to be a perfect portfolio or a polished version of my entire life. It's simply a place where I can collect the things that make me <strong>me</strong>.</p>
 
         <p>I'm an <strong>MBBS student</strong>, so a big part of my life revolves around lectures, anatomy, pharmacology, exams, notes, and the endless process of learning how the human body works.</p>
 
-        <p>But medicine isn't the only thing I'm interested in.</p>
+        <p>But medicine isn't the only thing I'm interested in. I've always enjoyed <strong>photography</strong>—especially those ordinary moments that somehow look extraordinary when you stop and frame them. A dramatic sky. A flower in the garden. A quiet evening. A distant landscape. A city after rain.</p>
 
-        <p>I've always enjoyed <strong>photography</strong>—especially those ordinary moments that somehow look extraordinary when you stop and frame them. A dramatic sky. A flower in the garden. A quiet evening. A distant landscape. A city after rain.</p>
-
-        <p>Sometimes I take a photograph without really knowing why.</p>
-
-        <p>Maybe I just like the way that particular moment feels.</p>
+        <p>Sometimes I take a photograph without really knowing why. Maybe I just like the way that particular moment feels.</p>
 
         <p>And then there are the other things—<strong>travel, technology, gaming, projects, random ideas, and the curiosity to learn something new just because I can.</strong></p>
 
         <p>That's what I want this website to hold.</p>
 
-        <p>Not just achievements.</p>
-        <p>Not just certificates.</p>
-        <p>Not just a carefully constructed version of myself.</p>
+        <p>Not just achievements. Not just certificates. Not just a carefully constructed version of myself.</p>
 
         <p><strong>The journey.</strong></p>
 
@@ -99,31 +186,32 @@
 
         <p>Maybe I'll look back at these pages years from now and laugh at how everything looked in the beginning.</p>
 
-        <p>And honestly, I hope I do.</p>
+        <p>And honestly, I hope I do. Because that would mean I kept growing.</p>
 
-        <p>Because that would mean I kept growing.</p>
-
-        <p>So this is the beginning.</p>
-
-        <p><strong>Tasif's Den.</strong></p>
+        <p>So this is the beginning. <strong class="accent">Tasif's Den.</strong></p>
 
         <p>A little corner of the internet where medicine meets photography, curiosity meets creativity, and ordinary moments get a place to stay.</p>
 
-        <blockquote>“Build a mind that patients can trust blindly.”</blockquote>
-        <cite>— TASIF</cite>
+        <p><strong>Welcome to my Den.</strong></p>
+      </article>
+    </section>
 
-        <p style="margin-top:28px"><strong>Welcome to my Den.</strong></p>
-      </div>
-    </article>
+    <section class="interests" aria-label="Interests">
+      <div class="interest"><div class="interest-icon">🩺</div><h3>Medicine</h3><p>Learning to heal</p></div>
+      <div class="interest"><div class="interest-icon">📷</div><h3>Photography</h3><p>Capturing moments</p></div>
+      <div class="interest"><div class="interest-icon">⛰</div><h3>Travel</h3><p>Exploring more</p></div>
+      <div class="interest"><div class="interest-icon">🎮</div><h3>Gaming</h3><p>Because it's fun</p></div>
+      <div class="interest"><div class="interest-icon">💻</div><h3>Technology</h3><p>Always curious</p></div>
+      <div class="interest"><div class="interest-icon">🌿</div><h3>Gardening</h3><p>A calmer mind</p></div>
+    </section>
 
-    <article>
-      <h3>What's next?</h3>
-      <p>Blogs, photography, MBBS study resources, projects, travel stories and eventually more interactive features.</p>
-    </article>
+    <footer class="about-footer">
+      <div class="big-line">Same Curiosity.<br>Bigger Horizons.</div>
+      <div class="tiny">TASIF'S DEN · EST. 2025</div>
+    </footer>
   </div>
 </main>
 
-<footer>© <span class="year"></span> Tasif</footer>
 <script src="js/app.js"></script>
 </body>
 </html>
