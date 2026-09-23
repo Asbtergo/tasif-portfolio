@@ -1,1 +1,149 @@
-<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Projects — Tasif</title><link rel="stylesheet" href="css/style.css"></head><body><header><a class="logo" href="index.html">TASIF<span>.</span></a><button id="menu">☰</button><nav><a href="index.html">Home</a><a href="about.html">About</a><a href="gallery.html">Gallery</a><a href="blog.html">Blog</a><a class="active" href="projects.html">Projects</a><a href="contact.html">Contact</a></nav><button id="theme">☾</button></header><main class="page"><small>PROJECTS</small><h1>Things I'm building.</h1><div class="grid"><article><b>01</b><h3>Website test</h3><p>Learning Git, GitHub and Cloudflare Pages.</p></article><article><b>02</b><h3>Tasif's Den</h3><p>The future personal portfolio.</p></article><article><b>03</b><h3>Study archive</h3><p>A future home for study resources.</p></article></div></main><footer>© <span class="year"></span> Tasif</footer><script src="js/app.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Projects — Tasif's Den</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+  .study-archive{
+    margin-top:34px;
+    padding:30px;
+    border:1px solid rgba(69,169,255,.16);
+    border-radius:22px;
+    background:linear-gradient(145deg,rgba(13,29,42,.78),rgba(7,17,25,.72));
+  }
+  .study-archive-head{
+    display:flex;justify-content:space-between;gap:20px;align-items:end;
+    margin-bottom:24px;
+  }
+  .study-archive-head small{
+    color:#45a9ff;letter-spacing:.22em;font-weight:700;
+  }
+  .study-archive-head h2{margin:8px 0 0}
+  .study-archive-head p{margin:0;color:#9eacb7;max-width:520px;line-height:1.6}
+  .pdf-grid{
+    display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;
+  }
+  .pdf-card{
+    display:flex;align-items:center;gap:18px;
+    padding:20px;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:17px;
+    background:rgba(255,255,255,.025);
+    transition:.25s ease;
+  }
+  .pdf-card:hover{
+    transform:translateY(-4px);
+    border-color:rgba(69,169,255,.42);
+    box-shadow:0 18px 45px rgba(0,0,0,.22);
+  }
+  .pdf-icon{
+    flex:0 0 58px;width:58px;height:68px;
+    border-radius:12px;
+    display:grid;place-items:center;
+    background:linear-gradient(145deg,#45a9ff,#176ba9);
+    color:#fff;font-size:.72rem;font-weight:800;letter-spacing:.08em;
+  }
+  .pdf-info{min-width:0;flex:1}
+  .pdf-info span{
+    display:block;color:#45a9ff;font-size:.68rem;font-weight:700;
+    letter-spacing:.16em;margin-bottom:6px;
+  }
+  .pdf-info h3{margin:0 0 6px;font-size:1rem}
+  .pdf-info p{margin:0;color:#9eacb7;font-size:.82rem;line-height:1.45}
+  .pdf-btn{
+    flex:0 0 auto;text-decoration:none;
+    padding:9px 13px;border:1px solid rgba(69,169,255,.35);
+    border-radius:10px;color:#dcefff;font-size:.78rem;
+    transition:.2s ease;
+  }
+  .pdf-btn:hover{background:#45a9ff;color:#061019}
+  @media(max-width:760px){
+    .pdf-grid{grid-template-columns:1fr}
+    .study-archive{padding:21px}
+    .study-archive-head{display:block}
+    .study-archive-head p{margin-top:10px}
+  }
+  @media(max-width:500px){
+    .pdf-card{align-items:flex-start;flex-wrap:wrap}
+    .pdf-btn{margin-left:76px}
+  }
+</style>
+</head>
+<body>
+<header>
+  <a class="logo" href="index.html">TASIF<span>.</span></a>
+  <button id="menu">☰</button>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="blog.html">Blog</a>
+    <a class="active" href="projects.html">Projects</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+  <button id="theme">☾</button>
+</header>
+
+<main class="page">
+  <small>PROJECTS</small>
+  <h1>Things I'm building.</h1>
+
+  <div class="grid">
+    <article>
+      <b>01</b>
+      <h3>Website test</h3>
+      <p>Learning Git, GitHub and Cloudflare Pages.</p>
+    </article>
+
+    <article>
+      <b>02</b>
+      <h3>Tasif's Den</h3>
+      <p>The future personal portfolio.</p>
+    </article>
+
+    <article>
+      <b>03</b>
+      <h3>Study archive</h3>
+      <p>A growing home for my MBBS study resources.</p>
+    </article>
+  </div>
+
+  <section class="study-archive">
+    <div class="study-archive-head">
+      <div>
+        <small>STUDY ARCHIVE · PHARMACOLOGY</small>
+        <h2>Lecture Notes</h2>
+      </div>
+      <p>My Pharmacology 2nd Term lecture notes, collected and organized for quick access.</p>
+    </div>
+
+    <div class="pdf-grid">
+      <article class="pdf-card">
+        <div class="pdf-icon">PDF</div>
+        <div class="pdf-info">
+          <span>PHARMACOLOGY · 2ND TERM</span>
+          <h3>Lecture Notes — Dr. Mareyum Maam</h3>
+          <p>Pharmacology lecture notes covering the 2nd Term topics.</p>
+        </div>
+        <a class="pdf-btn" href="pdfs/pharmacology/pharmacology-term-2-mareyum-maam-compressed.pdf" target="_blank" rel="noopener">Open PDF →</a>
+      </article>
+
+      <article class="pdf-card">
+        <div class="pdf-icon">PDF</div>
+        <div class="pdf-info">
+          <span>PHARMACOLOGY · 2ND TERM</span>
+          <h3>Lecture Notes — Dr. Shammi Maam</h3>
+          <p>Pharmacology 2nd Term lecture notes by Dr. Shammi Maam.</p>
+        </div>
+        <a class="pdf-btn" href="pdfs/pharmacology/pharmacology-term-2-shammi-maam-compressed.pdf" target="_blank" rel="noopener">Open PDF →</a>
+      </article>
+    </div>
+  </section>
+</main>
+
+<footer>© <span class="year"></span> Tasif</footer>
+<script src="js/app.js"></script>
+</body>
+</html>
